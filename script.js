@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Automatically open the popup when the page loads
+    window.onload = function() {
+        const overlay = document.getElementById("myOverlay");
+        if (!localStorage.getItem("popupShown")) {
+            overlay.style.display = "block";
+            localStorage.setItem("popupShown", "true");
+        }
+    };
+
+    // Close the popup after opening the link
+    document.querySelector(".popup a").addEventListener("click", function(event) {
+        //event.preventDefault(); // Prevent the link from navigating
+        const overlay = document.getElementById("myOverlay");
+        overlay.style.display = "none";
+    });
+    
     const games = {
         1: {
             name: 'Riding Extreme 3D',
@@ -15,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
             attempts: 20,
         },
         3: {
-            name: 'My Clone Army',
-            appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
-            promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-            timing: 180000, // 180 seconds
-            attempts: 30,
+            name: 'Cafe Dash',
+            appToken: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+            promoId: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+            timing: 20000, // 20 seconds
+            attempts: 20,
         },
         4: {
             name: 'Train Miner',
@@ -256,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         return data.hasCode;
     };
-
     const generateKey = async (clientToken, promoId) => {
         const response = await fetch('https://api.gamepromo.io/promo/create-code', {
             method: 'POST',
