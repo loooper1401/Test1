@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', async () => {
         const keyCount = parseInt(keyRange.value);
         if (!selectedGame) {
-            alert('Please select a game first.');
+            alert('لطفا بازی مورد نظر انتخاب کنید.');
             return;
         }
 
@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.grid-container').style.display = 'none';
         keyCountGroup.style.display = 'none';
 
-        keyCountLabel.innerText = `Number of keys: ${keyCount}`;
+        keyCountLabel.innerText = `تعداد کلید: ${keyCount}`;
 
         progressBar.style.width = '0%';
         progressText.innerText = '0%';
-        progressLog.innerText = 'Starting...';
+        progressLog.innerText = 'شروع...';
         progressContainer.classList.remove('hidden');
         keyContainer.classList.add('hidden');
         generatedKeysTitle.classList.add('hidden');
@@ -158,14 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 clientToken = await login(clientId, game.appToken);
             } catch (error) {
-                alert(`Failed to login: ${error.message}`);
+                alert(`اخطار: ${error.message}`);
                 startBtn.disabled = false;
                 return null;
             }
 
             for (let i = 0; i < game.attempts; i++) {
                 const hasCode = await emulateProgress(clientToken, game.promoId);
-                updateProgress((100 / game.attempts) / keyCount, `Emulating progress ${i + 1}/${game.attempts}...`);
+                updateProgress((100 / game.attempts) / keyCount, `...درحال ساخت کلید مورد نظر هستیم  `);
                 if (hasCode) {
                     break;
                 }
@@ -174,10 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const key = await generateKey(clientToken, game.promoId);
-                updateProgress(100 / keyCount, 'Generating key...');
+                updateProgress(100 / keyCount, 'ساخت کد کلید...');
                 return key;
             } catch (error) {
-                alert(`Failed to generate key: ${error.message}`);
+                alert(`مشکل در تولید کلید: ${error.message}`);
                 return null;
             }
         };
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             keysList.innerHTML = keys.filter(key => key).map(key =>
                 `<div class="key-item">
                     <input type="text" value="${key}" readonly>
-                    <button class="copyKeyBtn" data-key="${key}">Copy Key</button>
+                    <button class="copyKeyBtn" data-key="${key}">کپی کلید</button>
                 </div>`
             ).join('');
             copyAllBtn.classList.remove('hidden');
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             keysList.innerHTML =
                 `<div class="key-item">
                     <input type="text" value="${keys[0]}" readonly>
-                    <button class="copyKeyBtn" data-key="${keys[0]}">Copy Key</button>
+                    <button class="copyKeyBtn" data-key="${keys[0]}">کپی کلید</button>
                 </div>`;
         }
 
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to generate key');
+            throw new Error('مشکلی در ساخت کلید');
         }
 
         const data = await response.json();
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 copyStatus.classList.remove('hidden');
                 setTimeout(() => copyStatus.classList.add('hidden'), 2000);
             }).catch(err => {
-                console.error('Failed to copy text: ', err);
+                console.error('مشکلی به وجود اماده: ', err);
             });
         } else {
             const textArea = document.createElement('textarea');
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => copyStatus.classList.add('hidden'), 2000);
                 }
             } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
+                console.error('لطفا ربات ببنید و مجدد وارد شوید', err);
             }
 
             document.body.removeChild(textArea);
