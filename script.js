@@ -95,10 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
             attempts: 20,
         },
         12: {
-            name: 'Gangs Wars',
-            appToken: 'b6de60a0-e030-48bb-a551-548372493523',
-            promoId: 'c7821fa7-6632-482c-9635-2bd5798585f9',
-            timing: 40000, // 40 seconds
+            name: 'Fluff Crusade',
+            appToken: '112887b0-a8af-4eb2-ac63-d82df78283d9',
+            promoId: '112887b0-a8af-4eb2-ac63-d82df78283d9',
+            timing: 20000, // 40 seconds
             attempts: 30,
         }
     };
